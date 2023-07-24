@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:47 by gbertet           #+#    #+#             */
-/*   Updated: 2023/06/23 17:24:38 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/07/24 15:09:04 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,31 +83,29 @@ typedef struct	s_player
 	float	rads;
 }				t_player;
 
-typedef struct	s_mlx
+typedef struct	s_cub
 {
 	t_player	player;
 	t_keypress	key;
-	void		*ptr;
+	mlx_image_t	*render;
+	mlx_t		*ptr;
 	void		*win;
 	int			width;
 	int			height;
 	char		**map;
-}				t_mlx;
+}				t_cub;
 
 t_coord	fill_coord(float x, float y);
 t_pos	fill_pos(int x, int y);
-int		hook_mousedown(int button, int x, int y, t_mlx *mlx);
-int		hook_keydown(int key, t_mlx *mlx);
-int		hook_keyup(int key, t_mlx *mlx);
-void	draw_line(t_data *data, t_coord begin, t_coord end, int color);
-void	draw_rectangle(t_data *data, t_pos begin, t_pos end, int color);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int		argb_value(int a, int r, int g, int b);
-int		ft_exit(t_mlx *mlx);
+void	draw_line(mlx_image_t *data, t_coord begin, t_coord end, int color);
+void	draw_rectangle(mlx_image_t *data, t_pos begin, t_pos end, int color);
+int		rgba_value(int r, int g, int b, int a);
+int		ft_exit(t_cub *cub);
 char	**get_map();
-void	render_all(t_mlx mlx);
+void	render_all(t_cub *cub);
 int 	ft_abs(int i);
 void    ft_freestr(char **str);
+void    ft_fswap(float *a, float *b);
 t_keypress	init_key();
 
 

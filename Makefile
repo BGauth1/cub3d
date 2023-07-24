@@ -19,7 +19,7 @@ OBJ = $(SRC:.c=.o)
 
 OBJBONUS = $(SRC_BONUS:.c=.o)
 
-FLAGS = -g -Ofast -Wall -Werror -Wextra
+FLAGS = -g3 -Ofast -Wall -Werror -Wextra
 
 CC = clang
 all : $(NAME)

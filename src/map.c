@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:19:07 by gbertet           #+#    #+#             */
-/*   Updated: 2023/07/19 15:58:23 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/07/24 15:10:03 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,20 @@ void	render_map(mlx_image_t *img, char **map)
 	int		color;
 
 	i = -1;
+	(void)map;
 	draw_rectangle(img, fill_pos(0, 0),
-				fill_pos(WIN_WIDTH, WIN_HEIGHT), argb_value(0, 0, 0 ,0));
+				fill_pos(399, 399), rgba_value(0, 0, 0 ,255));
 	while (map[++i])
 	{
 		j = -1;
 		while (map[i][++j])
 		{
 			if (map[i][j] == '1')
-				color = argb_value(255, 15, 15, 255);
+				color = rgba_value(255, 0, 0, 255);
 			else
-				color = argb_value(30, 30, 30, 255);
+				color = rgba_value(0, 0, 0, 255);
 			draw_rectangle(img, fill_pos(j * 40, i * 40),
-				fill_pos((j + 1) * 40, (i + 1) * 40), color);
+				fill_pos((j + 1) * 40 - 1, (i + 1) * 40 - 1), color);
 		}
 	}
 }
@@ -58,15 +59,15 @@ void	render_player(mlx_image_t *img, t_player player)
 {
 	// (void)player;
 	draw_rectangle(img, fill_pos(player.coord.x - 5, player.coord.y - 5),
-		fill_pos(player.coord.x + 5, player.coord.y + 5), argb_value(50, 50, 255, 255));
+		fill_pos(player.coord.x + 5, player.coord.y + 5), rgba_value(50, 50, 255, 255));
 	// draw_rectangle(&img, fill_coord(100,100), fill_coord(101,101), argb_value(0, 50, 50, 255));
 }
 
-void	render_all(t_cub cub)
+void	render_all(t_cub *cub)
 {
-	render_map(cub.render, cub.map);
-	render_player(cub.render, cub.player);
-	draw_line(cub.render, fill_coord(cub.player.coord.x, cub.player.coord.y), fill_coord(cub.player.coord.x + cub.player.delta.x * 5, cub.player.coord.y + cub.player.delta.y * 5), argb_value(0, 255, 0, 255));
+	render_map(cub->render, cub->map);
+	render_player(cub->render, cub->player);
+	draw_line(cub->render, fill_coord(cub->player.coord.x, cub->player.coord.y), fill_coord(cub->player.coord.x + cub->player.delta.x * 5, cub->player.coord.y + cub->player.delta.y * 5), rgba_value(0, 255, 0, 255));
 	// printf("Rendering!");
 	// mlx_destroy_image(cub.ptr, img.img);
 }

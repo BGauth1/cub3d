@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:41 by gbertet           #+#    #+#             */
-/*   Updated: 2023/07/19 15:12:38 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/07/24 15:08:43 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	draw_rectangle(mlx_image_t *data, t_pos begin, t_pos end, int color)
 	}
 }
 
-int	argb_value(int r, int g, int b, int a)
+int	rgba_value(int r, int g, int b, int a)
 {
     return (r << 24 | g << 16 | b << 8 | a);
 }

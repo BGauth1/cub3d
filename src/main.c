@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:34 by gbertet           #+#    #+#             */
-/*   Updated: 2023/07/19 14:59:52 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/07/24 14:34:30 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void	game_loop(void *thing)
 	t_cub	*cub;
 
 	cub = (t_cub*)thing;
-	// (void)player;
-	render_all(*cub);
+	render_all(cub);
 	if (mlx_is_key_down(cub->ptr, MLX_KEY_S))
 		move_down(&cub->player, cub->map);
 	if (mlx_is_key_down(cub->ptr, MLX_KEY_W))
@@ -64,8 +63,8 @@ int	main(int ac, char **av)
 	cub.player.rads = PI;
 	cub.player.delta = fill_coord(cos(cub.player.rads) * 5, sin(cub.player.rads) * 5);
 
-	mlx_loop_hook(cub.ptr, &game_loop, &cub);
-	// mlx_hook(cub.win, 17, 0, ft_exit, &cub);
+	mlx_loop_hook(cub.ptr, game_loop, &cub);
 	mlx_loop(cub.ptr);
+	mlx_terminate(cub.ptr);
 	return (0);
 }
