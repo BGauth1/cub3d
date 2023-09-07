@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   struct_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/04 14:13:29 by gbertet           #+#    #+#             */
-/*   Updated: 2023/08/02 16:09:00 by gbertet          ###   ########.fr       */
+/*   Created: 2023/08/02 17:12:54 by gbertet           #+#    #+#             */
+/*   Updated: 2023/08/02 17:13:22 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    init_keypress(t_cub *cub)
+t_pos	fill_pos(int x, int y)
 {
-    cub->key.m = 0;
+	t_pos	res;
+
+	res.x = x;
+	res.y = y;
+	return (res);
 }
 
-void	da_key_hook(mlx_key_data_t keydata, void *thing)
+t_coord	fill_coord(float x, float y)
 {
-    t_cub   *cub;
+	t_coord res;
 
-    cub = thing;
-    if (keydata.key == MLX_KEY_M && keydata.action == MLX_PRESS)
-        cub->key.m = (cub->key.m != 1);
+	res.x = x;
+	res.y = y;
+	return (res);
 }

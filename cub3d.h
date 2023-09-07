@@ -52,6 +52,7 @@ typedef struct	s_keypress
 	int	right;
 	int	q;
 	int	e;
+	int	m;
 }				t_keypress;
 
 typedef struct	s_pos
@@ -78,14 +79,17 @@ typedef struct	s_color
 
 typedef struct	s_player
 {
+	t_pos	pos;
 	t_coord	coord;
-	t_coord	delta;
+	t_coord	dir;
+	t_coord	plane;
 	float	rads;
 }				t_player;
 
 typedef struct	s_cub
 {
 	t_player	player;
+	t_color		textures;
 	t_keypress	key;
 	mlx_image_t	*render;
 	mlx_t		*ptr;
@@ -94,6 +98,17 @@ typedef struct	s_cub
 	int			height;
 	char		**map;
 }				t_cub;
+
+typedef struct	s_ray
+{
+	t_coord	dir;
+	t_coord	sideDist;
+	t_coord	deltaDist;
+	float	perpWallDist;
+	t_pos	step;
+	int		hit;
+	int		side;
+}				t_ray;
 
 t_coord	fill_coord(float x, float y);
 t_pos	fill_pos(int x, int y);
@@ -106,13 +121,16 @@ void	render_all(t_cub *cub);
 int 	ft_abs(int i);
 void    ft_freestr(char **str);
 void    ft_fswap(float *a, float *b);
-t_keypress	init_key();
-
+float   ft_fabs(float x);
+int		get_ray_color(t_ray ray);
+void	draw_rays(t_cub *cub);
+void	init_keypress(t_cub *cub);
+void	da_key_hook(mlx_key_data_t keydata, void *thing);
 
 void	turn_left(t_player *p);
 void	turn_right(t_player *p);
-float	move_right(float x, float y, char **map);
-float	move_left(float x, float y, char **map);
+void	move_right(t_player *p, char **map);
+void	move_left(t_player *p, char **map);
 void	move_down(t_player *p, char **map);
 void	move_up(t_player *p, char **map);
 

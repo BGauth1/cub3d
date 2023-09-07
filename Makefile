@@ -6,9 +6,7 @@ LFLAGS = -L libft -lft -lm
 MLX = MLX42
 MFLAGS = $(MLX)/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 
-SRC = src/main.c src/color.c src/hooks.c src/map.c src/utils.c src/move.c
-
-SRC_BONUS = src/main_bonus.c src/color_bonus.c src/hooks_bonus.c src/fractal_bonus.c src/ft_atof_bonus.c src/parsing_bonus.c
+SRC = src/main.c src/color.c src/hooks.c src/map.c src/utils.c src/move.c src/rays.c src/struct_utils.c
 
 ifdef BONUS
 	SRC = $(SRC_BONUS)
@@ -19,7 +17,7 @@ OBJ = $(SRC:.c=.o)
 
 OBJBONUS = $(SRC_BONUS:.c=.o)
 
-FLAGS = -g3 -Ofast -Wall -Werror -Wextra
+FLAGS = -Ofast -Wall -Werror -Wextra
 
 CC = clang
 all : $(NAME)

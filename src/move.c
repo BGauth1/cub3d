@@ -6,62 +6,102 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:59:42 by gbertet           #+#    #+#             */
-/*   Updated: 2023/07/19 15:59:43 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/08/02 19:05:05 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	wall_here(int x, int y, char **map)
+int	wall_here(float x, float y, char **map)
 {
-	return (map[(y - 5) / 40][(x - 5) / 40] == '1' || map[(y + 5) / 40][(x + 5) / 40] == '1' ||
-			map[(y + 5) / 40][(x - 5) / 40] == '1' || map[(y - 5) / 40][(x + 5) / 40] == '1');
+	return (map[(int)(y - 0.125)][(int)(x - 0.125)] == '1' || map[(int)(y + 0.125)][(int)(x + 0.125)] == '1' ||
+			map[(int)(y + 0.125)][(int)(x - 0.125)] == '1' || map[(int)(y - 0.125)][(int)(x + 0.125)] == '1');
 }
 
 void	turn_left(t_player *p)
 {
+	float	olddirx;
+	float	oldplanex;
+	
 	p->rads -= 0.05;
 	if (p->rads < 0)
 		p->rads += 2 * PI;
-	p->delta.x = cos(p->rads) * 5;
-	p->delta.y = sin(p->rads) * 5;
+	olddirx = p->dir.x;
+	p->dir.x = p->dir.x * cos(-0.03) - p->dir.y * sin(-0.03);
+	p->dir.y = olddirx * sin(-0.03) + p->dir.y * cos(-0.03);
+	oldplanex = p->plane.x;
+	p->plane.x = p->plane.x * cos(-0.03) - p->plane.y * sin(-0.03);
+	p->plane.y = oldplanex * sin(-0.03) + p->plane.y * cos(-0.03);
 }
 
 void	turn_right(t_player *p)
 {
+	float	olddirx;
+	float	oldplanex;
+
 	p->rads += 0.05;
 	if (p->rads > 2 * PI)
 		p->rads -= 2 * PI;
-	p->delta.x = cos(p->rads) * 5;
-	p->delta.y = sin(p->rads) * 5;
+	olddirx = p->dir.x;
+	p->dir.x = p->dir.x * cos(0.03) - p->dir.y * sin(0.03);
+	p->dir.y = olddirx * sin(0.03) + p->dir.y * cos(0.03);
+	oldplanex = p->plane.x;
+	p->plane.x = p->plane.x * cos(0.03) - p->plane.y * sin(0.03);
+	p->plane.y = oldplanex * sin(0.03) + p->plane.y * cos(0.03); 
 }
 
-// float	move_left(t_player *p, char **map)
-// {
-// 	if (!wall_here(x - 1, y, map))
-// 		x -= 0.1;
-// 	return (x);
-// }
+void	move_left(t_player *p, char **map)
+{
+	int	i;
 
-// float	move_right(t_player *p, char **map)
-// {
-// 	if (!wall_here(x + 1, y, map))
-// 		x += 0.1;
-// 	return (x);
-// }
+	i = 0;
+	while (++i != 5)
+	{
+		if (!wall_here(p->coord.x + p->dir.y * 0.01, p->coord.y, map))
+			p->coord.x += p->dir.y * 0.01;
+		if (!wall_here(p->coord.x, p->coord.y - p->dir.x * 0.01, map))
+			p->coord.y -= p->dir.x * 0.01;
+	}
+}
+
+void	move_right(t_player *p, char **map)
+{
+	int	i;
+
+	i = 0;
+	while (++i != 5)
+	{
+		if (!wall_here(p->coord.x - p->dir.y * 0.01, p->coord.y, map))
+			p->coord.x -= p->dir.y * 0.01;
+		if (!wall_here(p->coord.x, p->coord.y + p->dir.x * 0.01, map))
+			p->coord.y += p->dir.x * 0.01;
+	}
+}
 
 void	move_up(t_player *p, char **map)
 {
-	if (!wall_here(p->coord.x + p->delta.x * 0.5, p->coord.y, map))
-		p->coord.x += p->delta.x * 0.5;
-	if (!wall_here(p->coord.x, p->coord.y + p->delta.y * 0.5, map))
-		p->coord.y += p->delta.y * 0.5;
+	int	i;
+
+	i = 0;
+	while (++i != 5)
+	{
+		if (!wall_here(p->coord.x + p->dir.x * 0.01, p->coord.y, map))
+			p->coord.x += p->dir.x * 0.01;
+		if (!wall_here(p->coord.x, p->coord.y + p->dir.y * 0.01, map))
+			p->coord.y += p->dir.y * 0.01;
+	}
 }
 
 void	move_down(t_player *p, char **map)
 {
-	if (!wall_here(p->coord.x - p->delta.x * 0.5, p->coord.y, map))
-		p->coord.x -= p->delta.x * 0.5;
-	if (!wall_here(p->coord.x, p->coord.y - p->delta.y * 0.5, map))
-		p->coord.y -= p->delta.y * 0.5;
+	int	i;
+
+	i = 0;
+	while (++i != 5)
+	{
+		if (!wall_here(p->coord.x - p->dir.x * 0.01, p->coord.y, map))
+			p->coord.x -= p->dir.x * 0.01;
+		if (!wall_here(p->coord.x, p->coord.y - p->dir.y * 0.01, map))
+			p->coord.y -= p->dir.y * 0.01;
+	}
 }

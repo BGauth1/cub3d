@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:32:02 by gbertet           #+#    #+#             */
-/*   Updated: 2023/07/24 14:02:00 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/07/31 18:35:46 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,16 @@ int ft_abs(int i)
 
 void    ft_fswap(float *a, float *b)
 {
-    int tmp;
+    float tmp;
 
     tmp = *a;
     *a = *b;
     *b = tmp;
+}
+
+float   ft_fabs(float x)
+{
+    if (x < 0)
+        return (x * -1);
+    return (x);
 }

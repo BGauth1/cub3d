@@ -6,29 +6,11 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:19:07 by gbertet           #+#    #+#             */
-/*   Updated: 2023/07/24 15:10:03 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/08/02 17:16:58 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-t_pos	fill_pos(int x, int y)
-{
-	t_pos	res;
-
-	res.x = x;
-	res.y = y;
-	return (res);
-}
-
-t_coord	fill_coord(float x, float y)
-{
-	t_coord res;
-
-	res.x = x;
-	res.y = y;
-	return (res);
-}
 
 void	render_map(mlx_image_t *img, char **map)
 {
@@ -58,8 +40,8 @@ void	render_map(mlx_image_t *img, char **map)
 void	render_player(mlx_image_t *img, t_player player)
 {
 	// (void)player;
-	draw_rectangle(img, fill_pos(player.coord.x - 5, player.coord.y - 5),
-		fill_pos(player.coord.x + 5, player.coord.y + 5), rgba_value(50, 50, 255, 255));
+	draw_rectangle(img, fill_pos(player.coord.x * 40 - 5, player.coord.y * 40 - 5),
+		fill_pos(player.coord.x * 40 + 5, player.coord.y * 40 + 5), rgba_value(50, 50, 255, 255));
 	// draw_rectangle(&img, fill_coord(100,100), fill_coord(101,101), argb_value(0, 50, 50, 255));
 }
 
@@ -67,7 +49,7 @@ void	render_all(t_cub *cub)
 {
 	render_map(cub->render, cub->map);
 	render_player(cub->render, cub->player);
-	draw_line(cub->render, fill_coord(cub->player.coord.x, cub->player.coord.y), fill_coord(cub->player.coord.x + cub->player.delta.x * 5, cub->player.coord.y + cub->player.delta.y * 5), rgba_value(0, 255, 0, 255));
+	draw_line(cub->render, fill_coord(cub->player.coord.x * 40, cub->player.coord.y * 40), fill_coord(cub->player.coord.x * 40 + cub->player.dir.x * 25, cub->player.coord.y * 40 + cub->player.dir.y * 25), rgba_value(0, 255, 0, 255));
 	// printf("Rendering!");
 	// mlx_destroy_image(cub.ptr, img.img);
 }
