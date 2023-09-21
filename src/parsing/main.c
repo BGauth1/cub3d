@@ -20,12 +20,18 @@ int	main(int argc, char **argv)
 	i = 0;
 	if (parsing_data(argc, argv, &data))
 		return (1);
+	
+	
+	
 	while (i < data.input->y)
 	{
 		printf("%s \n", data.tab[i]);
 		i++;
 	}
 	printf(" x = %d\n y = %d\n", data.input->pos_s[0], data.input->pos_s[1]);
+	
+	
+	
 	ft_free_tab_map(&data);
 	ft_free_struct(&data);
 	return (0);

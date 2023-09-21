@@ -6,7 +6,7 @@
 /*   By: lamasson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 21:37:29 by lamasson          #+#    #+#             */
-/*   Updated: 2023/07/29 19:48:14 by lamasson         ###   ########.fr       */
+/*   Updated: 2023/09/20 19:25:14 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,23 @@ int	printf_error(int id, char *str)
 	return (1);
 }
 
-int	check_end_line_texture(char *line, int i)
+int	check_end_line_texture(char *line, int i, char *path, int j)
 {
+	char	*format;
+	int		k;
+
+	format = ".png";
+	k = 0;
+	while (path[j])
+	{
+		if (path[j] == format[k])
+		{
+			j++;
+			k++;
+		}
+		else
+			return (1);
+	}
 	if (line[i] == '\n')
 		return (0);
 	while (line[i])
