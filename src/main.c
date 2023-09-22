@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:34 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/22 20:17:37 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/22 21:51:50 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	init_cub(t_cub *cub, int argc, char **argv)
 	t_data_fd	data;
 
 	if (parsing_data(argc, argv, &data))
-		return (1);
+		return (0);
 	cub->data = data;
 	cub->map = data.tab;
 	cub->width = WIN_WIDTH;

@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:46:30 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/22 19:21:11 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/22 21:36:28 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,22 @@ void	get_textures(t_cub *cub, t_color *textures)
 	mlx_texture_t	*mlx_texture_tmp;
 	mlx_image_t		*mlx_image_tmp;
 
-	mlx_texture_tmp = mlx_load_png("./src/textures/papa.png");
+	mlx_texture_tmp = mlx_load_png("src/textures/papa.png");
 	mlx_image_tmp = mlx_texture_to_image(cub->ptr, mlx_texture_tmp);
 	textures->no_texture = get_texture_from_mlx(mlx_image_tmp);
 	mlx_delete_texture(mlx_texture_tmp);
 	mlx_delete_image(cub->ptr, mlx_image_tmp);
-	mlx_texture_tmp = mlx_load_png("./src/textures/papa.png");
+	mlx_texture_tmp = mlx_load_png("src/textures/papa.png");
 	mlx_image_tmp = mlx_texture_to_image(cub->ptr, mlx_texture_tmp);
 	textures->ea_texture = get_texture_from_mlx(mlx_image_tmp);
 	mlx_delete_texture(mlx_texture_tmp);
 	mlx_delete_image(cub->ptr, mlx_image_tmp);
-	mlx_texture_tmp = mlx_load_png("./src/textures/papa.png");
+	mlx_texture_tmp = mlx_load_png("src/textures/papa.png");
 	mlx_image_tmp = mlx_texture_to_image(cub->ptr, mlx_texture_tmp);
 	textures->so_texture = get_texture_from_mlx(mlx_image_tmp);
 	mlx_delete_texture(mlx_texture_tmp);
 	mlx_delete_image(cub->ptr, mlx_image_tmp);
-	mlx_texture_tmp = mlx_load_png("./src/textures/papa.png");
+	mlx_texture_tmp = mlx_load_png("src/textures/papa.png");
 	mlx_image_tmp = mlx_texture_to_image(cub->ptr, mlx_texture_tmp);
 	textures->we_texture = get_texture_from_mlx(mlx_image_tmp);
 	mlx_delete_texture(mlx_texture_tmp);
