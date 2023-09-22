@@ -6,41 +6,41 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:32:02 by gbertet           #+#    #+#             */
-/*   Updated: 2023/07/31 18:35:46 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/22 19:21:15 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3D.h"
 
-void    ft_freestr(char **str)
+void	ft_freestr(char **str)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    while (str[++i])
-        free(str[i]);
-    free(str);
+	i = -1;
+	while (str[++i])
+		free(str[i]);
+	free(str);
 }
 
-int ft_abs(int i)
+int	ft_abs(int i)
 {
-    if (i < 0)
-        return (i * -1);
-    return (i);
+	if (i < 0)
+		return (i * -1);
+	return (i);
 }
 
-void    ft_fswap(float *a, float *b)
+void	ft_fswap(float *a, float *b)
 {
-    float tmp;
+	float	tmp;
 
-    tmp = *a;
-    *a = *b;
-    *b = tmp;
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
 }
 
-float   ft_fabs(float x)
+float	ft_fabs(float x)
 {
-    if (x < 0)
-        return (x * -1);
-    return (x);
+	if (x < 0)
+		return (x * -1);
+	return (x);
 }

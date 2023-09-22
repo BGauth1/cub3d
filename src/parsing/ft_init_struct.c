@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_struct.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamasson <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 21:02:42 by lamasson          #+#    #+#             */
-/*   Updated: 2023/07/31 22:06:10 by lamasson         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:22:29 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../../cub3D.h"
 
 void	ft_free_struct(t_data_fd *data)
 {

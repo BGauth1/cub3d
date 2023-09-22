@@ -1,4 +1,4 @@
-NAME = cub3d
+NAME = cub3D
 
 LIBFT = libft
 LFLAGS = -L libft -lft -lm
@@ -6,7 +6,8 @@ LFLAGS = -L libft -lft -lm
 MLX = MLX42
 MFLAGS = $(MLX)/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 
-SRC = src/main.c src/color.c src/hooks.c src/map.c src/utils.c src/move.c src/rays.c src/struct_utils.c
+SRC = src/main.c src/color.c src/hooks.c src/map.c src/utils.c src/move.c src/rays.c src/struct_utils.c src/texture.c src/dda.c src/parsing/ft_parsing.c src/parsing/ft_parsing_color.c src/parsing/ft_parsing_color_error.c src/parsing/ft_parsing_texture.c src/parsing/ft_parsing_texture_error.c src/parsing/ft_init_struct.c src/parsing/ft_parsing_map.c src/parsing/ft_parsing_map_utils.c src/parsing/ft_parsing_map_error.c
+
 
 ifdef BONUS
 	SRC = $(SRC_BONUS)
@@ -17,7 +18,7 @@ OBJ = $(SRC:.c=.o)
 
 OBJBONUS = $(SRC_BONUS:.c=.o)
 
-FLAGS = -Ofast -Wall -Werror -Wextra
+FLAGS = -Ofast -Wall -Werror -Wextra -g3
 
 CC = clang
 all : $(NAME)
