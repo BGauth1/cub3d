@@ -6,21 +6,11 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:34 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/22 21:51:50 by lamasson         ###   ########.fr       */
+/*   Updated: 2023/09/28 19:31:32 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-
-int	ft_exit(t_cub *cub)
-{
-	ft_free_tab_map(&cub->data);
-	ft_free_struct(&cub->data);
-	// ft_freestr(cub->map);
-	free_textures(&cub->textures);
-	free(cub->player.rays);
-	exit(0);
-}
 
 void	game_loop(void *thing)
 {
@@ -32,7 +22,7 @@ void	game_loop(void *thing)
 	draw_rays(cub);
 	if (mlx_is_key_down(cub->ptr, MLX_KEY_LEFT_SHIFT))
 		cub->player.move_speed = P_MV_SPEED * 1.70;
-	else 
+	else
 		cub->player.move_speed = P_MV_SPEED;
 	if (mlx_is_key_down(cub->ptr, MLX_KEY_S))
 		move_down(&cub->player, cub->map);
@@ -48,35 +38,29 @@ void	game_loop(void *thing)
 		turn_right(&cub->player);
 	if (mlx_is_key_down(cub->ptr, MLX_KEY_ESCAPE))
 		mlx_close_window(cub->ptr);
-	printf("FPS: %d\n", (int)(1 / cub->ptr->delta_time));
 }
 
 int	init_cub(t_cub *cub, int argc, char **argv)
 {
-	int	i;
+	int			i;
 	t_data_fd	data;
 
 	if (parsing_data(argc, argv, &data))
 		return (0);
 	cub->data = data;
 	cub->map = data.tab;
-	cub->width = WIN_WIDTH;
-	cub->height = WIN_HEIGHT;
 	cub->ptr = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", false);
 	cub->render = mlx_new_image(cub->ptr, WIN_WIDTH, WIN_HEIGHT);
 	mlx_image_to_window(cub->ptr, cub->render, 0, 0);
-	// cub->map = get_map();
-	cub->player.coord = fill_coord(cub->data.input->pos_s[0], cub->data.input->pos_s[1]);
-	cub->player.dir = fill_coord(-1, 0);
-	cub->player.plane.x = 0;
-	cub->player.plane.y = 0.66;
-	cub->textures.ceiling_color = rgba_value(228, 228, 118, 255);
-	cub->textures.floor_color = rgba_value(203, 203, 90, 255);
+	cub->player.coord = fill_coord(data.input->pos_s[0], data.input->pos_s[1]);
+	starting_direction(&cub->player, cub->data.input->pos_j);
+	cub->textures.c_color = rgba_value(data.c[0], data.c[1], data.c[2], 255);
+	cub->textures.f_color = rgba_value(data.f[0], data.f[1], data.f[2], 255);
 	cub->player.rays = malloc((WIN_WIDTH) * sizeof(t_ray));
 	i = -1;
 	while (++i < WIN_WIDTH)
 		cub->player.rays[i].num = WIN_WIDTH - i - 1;
-	get_textures(cub, &cub->textures);
+	load_textures(cub);
 	init_keypress(cub);
 	if (!cub->textures.ea_texture || !cub->textures.so_texture
 		|| !cub->textures.no_texture || !cub->textures.we_texture)

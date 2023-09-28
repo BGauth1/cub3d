@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:41 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/22 19:20:02 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/28 19:44:32 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ void	draw_wall_texture(t_cub *cub, t_ray ray, int *drawStart,
 	float		step;
 	float		texpos;
 
+	int			tmp;
+
 	texture = get_side_texture(ray.side, ray.dir.x, ray.dir.y, cub->textures);
-	tex_x = (int)(ray.wallX * (float)texture->width);
+	tex_x = (int)(ray.wallx * (float)texture->width);
 	if ((!ray.side && ray.dir.x > 0) || (ray.side && ray.dir.y < 0))
 		tex_x = texture->width - tex_x - 1;
 	step = 1.0 * texture->height / lineLength;
@@ -74,27 +76,32 @@ void	draw_wall_texture(t_cub *cub, t_ray ray, int *drawStart,
 	{
 		tex_y = (int)texpos;
 		texpos += step;
+		tmp = texture->width * tex_y + tex_x;
+		if (tmp >= 0)
 		mlx_put_pixel(cub->render, ray.num, *drawStart,
-			texture->pixels[texture->width * tex_y + tex_x]);
+			texture->pixels[tmp]);
 		*drawStart = *drawStart + 1;
 	}
 	if (*drawStart < WIN_HEIGHT)
 		mlx_put_pixel(cub->render, ray.num, *drawStart,
-			cub->textures.floor_color);
+			cub->textures.f_color);
 }
 
-int	get_ray_color(t_ray ray)
+void	draw_texture(t_cub *cub, t_texture texture, t_pos pos)
 {
-	if (ray.side == 1 && ray.dir.y > 0)
-		return (rgba_value(255, 0, 0, 255));
-	else if (ray.side == 0 && ray.dir.x > 0)
-		return (rgba_value(0, 255, 255, 255));
-	else if (ray.side == 1)
-		return (rgba_value(0, 0, 255, 255));
-	return (rgba_value(0, 255, 0, 255));
-}
+	int	x;
+	int	y;
+	int	limit_x;
+	int	limit_y;
 
-int	rgba_value(int r, int g, int b, int a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
+	y = -1;
+	limit_x = WIN_WIDTH - pos.x;
+	limit_y = WIN_HEIGHT - pos.y;
+	while (++y < texture.height && y < limit_y)
+	{
+		x = -1;
+		while (++x < texture.width && x < limit_x)
+			mlx_put_pixel(cub->render, x + pos.x, y + pos.y,
+				texture.pixels[x + y * texture.width]);
+	}
 }

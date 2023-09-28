@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:19:07 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/22 19:20:49 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/28 18:30:43 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	render_map(mlx_image_t *img, char **map)
 	i = -1;
 	(void)map;
 	draw_rectangle(img, fill_pos(0, 0),
-		fill_pos(399, 399), rgba_value(0, 0, 0, 255));
+		fill_pos(WIN_WIDTH - 1, WIN_HEIGHT - 1), rgba_value(0, 0, 0, 255));
 	while (map[++i])
 	{
 		j = -1;
@@ -31,27 +31,51 @@ void	render_map(mlx_image_t *img, char **map)
 				color = rgba_value(255, 0, 0, 255);
 			else
 				color = rgba_value(0, 0, 0, 255);
-			draw_rectangle(img, fill_pos(j * 40, i * 40),
-				fill_pos((j + 1) * 40 - 1, (i + 1) * 40 - 1), color);
+			draw_rectangle(img, fill_pos(j * 10, i * 10),
+				fill_pos((j + 1) * 10 - 1, (i + 1) * 10 - 1), color);
 		}
 	}
 }
 
 void	render_player(mlx_image_t *img, t_player player)
 {
-	draw_rectangle(img, fill_pos(player.coord.x * 40 - 5,
-			player.coord.y * 40 - 5), fill_pos(player.coord.x * 40 + 5,
-			player.coord.y * 40 + 5), rgba_value(50, 50, 255, 255));
+	draw_rectangle(img, fill_pos(player.coord.x * 10 - 1,
+			player.coord.y * 10 - 1), fill_pos(player.coord.x * 10 + 1,
+			player.coord.y * 10 + 1), rgba_value(50, 50, 255, 255));
 }
 
 void	render_all(t_cub *cub)
 {
 	render_map(cub->render, cub->map);
 	render_player(cub->render, cub->player);
-	draw_line(cub->render, fill_coord(cub->player.coord.x * 40,
-			cub->player.coord.y * 40), fill_coord(cub->player.coord.x * 40
-			+ cub->player.dir.x * 25, cub->player.coord.y * 40
-			+ cub->player.dir.y * 25), rgba_value(0, 255, 0, 255));
+	draw_line(cub->render, fill_coord(cub->player.coord.x * 10,
+			cub->player.coord.y * 10), fill_coord(cub->player.coord.x * 10
+			+ cub->player.dir.x * 10, cub->player.coord.y * 10
+			+ cub->player.dir.y * 10), rgba_value(0, 255, 0, 255));
+}
+
+void	starting_direction(t_player *p, char c)
+{
+	if (c == 'N')
+	{
+		p->dir = fill_coord(0, -1);
+		p->plane = fill_coord(-0.66, 0);
+	}
+	else if (c == 'S')
+	{
+		p->dir = fill_coord(0, 1);
+		p->plane = fill_coord(0.66, 0);
+	}
+	else if (c == 'E')
+	{
+		p->dir = fill_coord(1, 0);
+		p->plane = fill_coord(0, -0.66);
+	}
+	else
+	{
+		p->dir = fill_coord(-1, 0);
+		p->plane = fill_coord(0, 0.66);
+	}
 }
 
 char	**get_map(void)

@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:04:23 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/22 19:20:59 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/28 19:31:32 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	draw_single_ray(t_cub *cub, t_ray ray, int col)
 	int	drawend;
 	int	drawceil;
 
-	lineheight = (int)(WIN_HEIGHT / ray.perpWallDist);
+	lineheight = (int)(WIN_HEIGHT / ray.wall_dist);
 	drawstart = -lineheight / 2 + WIN_HEIGHT / 2;
 	if (drawstart < 0)
 		drawstart = 0;
@@ -29,11 +29,11 @@ void	draw_single_ray(t_cub *cub, t_ray ray, int col)
 	drawceil = 0;
 	while (drawceil < drawstart)
 		mlx_put_pixel(cub->render, col, drawceil++,
-			cub->textures.ceiling_color);
+			cub->textures.c_color);
 	draw_wall_texture(cub, ray, &drawstart, lineheight);
 	while (++drawend < WIN_HEIGHT)
 		mlx_put_pixel(cub->render, col, drawend,
-			cub->textures.floor_color);
+			cub->textures.f_color);
 }
 
 void	draw_rays_map(t_cub *cub)
@@ -45,12 +45,12 @@ void	draw_rays_map(t_cub *cub)
 	while (++i < WIN_WIDTH)
 	{
 		color = get_ray_color(cub->player.rays[i]);
-		draw_line(cub->render, fill_coord(cub->player.coord.x * 40, cub
-				->player.coord.y * 40), fill_coord(cub->player.coord.x
-				* 40.0 + cub->player.rays[i].dir.x * cub->player.rays[i]
-				.perpWallDist * 40.0, cub->player.coord.y * 40.0 + cub
-				->player.rays[i].dir.y * cub->player.rays[i].perpWallDist
-				* 40.0), color);
+		draw_line(cub->render, fill_coord(cub->player.coord.x * 10, cub
+				->player.coord.y * 10), fill_coord(cub->player.coord.x
+				* 10.0 + cub->player.rays[i].dir.x * cub->player.rays[i]
+				.wall_dist * 10.0, cub->player.coord.y * 10.0 + cub
+				->player.rays[i].dir.y * cub->player.rays[i].wall_dist
+				* 10.0), color);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:48:31 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/22 19:20:09 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/28 19:17:45 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ t_ray	init_ray(t_cub *cub, int iter)
 	cub->player.pos.x = (int)cub->player.coord.x;
 	cub->player.pos.y = (int)cub->player.coord.y;
 	if (ray.dir.x == 0)
-		ray.deltaDist.x = 1e30;
+		ray.delta_dist.x = 1e30;
 	else
-		ray.deltaDist.x = ft_fabs(1 / ray.dir.x);
+		ray.delta_dist.x = ft_fabs(1 / ray.dir.x);
 	if (ray.dir.y == 0)
-		ray.deltaDist.y = 1e30;
+		ray.delta_dist.y = 1e30;
 	else
-		ray.deltaDist.y = ft_fabs(1 / ray.dir.y);
+		ray.delta_dist.y = ft_fabs(1 / ray.dir.y);
 	ray.hit = 0;
 	return (ray);
 }
@@ -39,26 +39,26 @@ void	get_side_dist(t_cub *cub, t_ray *ray)
 	if (ray->dir.x < 0)
 	{
 		ray->step.x = -1;
-		ray->sideDist.x = (cub->player.coord.x - (float)cub->player.pos.x)
-			* ray->deltaDist.x;
+		ray->side_dist.x = (cub->player.coord.x - (float)cub->player.pos.x)
+			* ray->delta_dist.x;
 	}
 	else
 	{
 		ray->step.x = 1;
-		ray->sideDist.x = ((float)cub->player.pos.x + 1.0
-				- cub->player.coord.x) * ray->deltaDist.x;
+		ray->side_dist.x = ((float)cub->player.pos.x + 1.0
+				- cub->player.coord.x) * ray->delta_dist.x;
 	}
 	if (ray->dir.y < 0)
 	{
 		ray->step.y = -1;
-		ray->sideDist.y = (cub->player.coord.y - (float)cub->player.pos.y)
-			* ray->deltaDist.y;
+		ray->side_dist.y = (cub->player.coord.y - (float)cub->player.pos.y)
+			* ray->delta_dist.y;
 	}
 	else
 	{
 		ray->step.y = 1;
-		ray->sideDist.y = ((float)cub->player.pos.y + 1.0
-				- cub->player.coord.y) * ray->deltaDist.y;
+		ray->side_dist.y = ((float)cub->player.pos.y + 1.0
+				- cub->player.coord.y) * ray->delta_dist.y;
 	}
 }
 
@@ -66,15 +66,15 @@ void	dda_loop(t_cub *cub, t_ray *ray)
 {
 	while (ray->hit == 0)
 	{
-		if (ray->sideDist.x < ray->sideDist.y)
+		if (ray->side_dist.x < ray->side_dist.y)
 		{
-			ray->sideDist.x += ray->deltaDist.x;
+			ray->side_dist.x += ray->delta_dist.x;
 			cub->player.pos.x += ray->step.x;
 			ray->side = 0;
 		}
 		else
 		{
-			ray->sideDist.y += ray->deltaDist.y;
+			ray->side_dist.y += ray->delta_dist.y;
 			cub->player.pos.y += ray->step.y;
 			ray->side = 1;
 		}
@@ -87,16 +87,16 @@ void	get_wall_data(t_cub *cub, t_ray *ray)
 {
 	if (!ray->side)
 	{
-		ray->perpWallDist = ray->sideDist.x - ray->deltaDist.x;
-		ray->wallX = cub->player.coord.y + ray->perpWallDist * ray->dir.y;
+		ray->wall_dist = ray->side_dist.x - ray->delta_dist.x;
+		ray->wallx = cub->player.coord.y + ray->wall_dist * ray->dir.y;
 	}
 	else
 	{
-		ray->perpWallDist = ray->sideDist.y - ray->deltaDist.y;
-		ray->wallX = cub->player.coord.x + ray->perpWallDist * ray->dir.x;
+		ray->wall_dist = ray->side_dist.y - ray->delta_dist.y;
+		ray->wallx = cub->player.coord.x + ray->wall_dist * ray->dir.x;
 	}
-	ray->wallX -= floor(ray->wallX);
-	ray->wallX = 1 - ray->wallX;
+	ray->wallx -= floor(ray->wallx);
+	ray->wallx = 1 - ray->wallx;
 }
 
 void	get_rays(t_cub *cub, t_ray *rays)
