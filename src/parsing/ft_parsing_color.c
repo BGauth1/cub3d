@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:43:51 by lamasson          #+#    #+#             */
-/*   Updated: 2023/09/22 21:21:06 by lamasson         ###   ########.fr       */
+/*   Updated: 2023/09/29 20:08:13 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ static int	check_data_rec_rgb(int **col, int j)
 	return (0);
 }
 
+static int	ft_check_tmp(char *tmp)
+{
+	if (!tmp)
+		return (-1);
+	if (tmp[0] == '\0')
+	{
+		free(tmp);
+		return (-1);
+	}
+	return (0);
+}
+
 static int	ft_init_struct_rgb(int **col, char *line, int start, int i)
 {
 	int		j;
@@ -37,21 +49,18 @@ static int	ft_init_struct_rgb(int **col, char *line, int start, int i)
 	j = 0;
 	while (line[i] && j < 3)
 	{
-		if (line[i] == ',' || (line[i] == '\n' && j == 2) \
-			|| (line[i] == ' ' && j == 2) || (line[i] == '\t' && j == 2))
+		if (line[i] == ',' || line[i] == '\t' || line[i] == ' ' \
+			|| (line[i] == '\n' && j == 2))
 		{
 			tmp = ft_substr(line, start, i - start);
-			if (!tmp)
-				exit (1);
-			if (tmp[0] == '\0')
-			{
-				free(tmp);
+			if (ft_check_tmp(tmp) == -1)
 				return (-1);
-			}
 			(*col)[j] = ft_atois(tmp);
 			free(tmp);
 			j++;
-			start = i + 1;
+			while (line[i] && !ft_isdigit(line[i]))
+				i++;
+			start = i;
 		}
 		i++;
 	}
