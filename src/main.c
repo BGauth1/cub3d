@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:34 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/29 17:34:46 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:41:55 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	init_cub(t_cub *cub, int argc, char **argv)
 	cub->ptr = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", false);
 	cub->render = mlx_new_image(cub->ptr, WIN_WIDTH, WIN_HEIGHT);
 	mlx_image_to_window(cub->ptr, cub->render, 0, 0);
-	cub->player.coord = fill_coord(data.input->pos_s[0], data.input->pos_s[1]);
+	cub->player.coord = fill_coord(data.input->pos_s[0] + 0.5, data.input->pos_s[1] + 0.5);
 	starting_direction(&cub->player, cub->data.input->pos_j);
 	cub->textures.c_color = rgba_value(data.c[0], data.c[1], data.c[2], 255);
 	cub->textures.f_color = rgba_value(data.f[0], data.f[1], data.f[2], 255);

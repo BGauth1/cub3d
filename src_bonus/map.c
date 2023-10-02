@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:19:07 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/29 18:08:03 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/02 17:06:15 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	render_map(mlx_image_t *img, char **map, int size)
 
 void	render_player(mlx_image_t *img, t_player player, int size)
 {
-	draw_rectangle(img, fill_pos(player.coord.x * size - 5,
-			player.coord.y * size - 5), fill_pos(player.coord.x * size + 5,
-			player.coord.y * size + 5), rgba_value(50, 50, 255, 255));
+	draw_rectangle(img, fill_pos(player.coord.x * size - 10,
+			player.coord.y * size - 10), fill_pos(player.coord.x * size + 10,
+			player.coord.y * size + 10), rgba_value(50, 50, 255, 255));
 }
 
 void	render_all(t_cub *cub)

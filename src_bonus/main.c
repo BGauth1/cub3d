@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:34 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/29 18:08:21 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/02 17:03:30 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	init_map(t_cub *cub)
 		cub->m_map.wall_size = WIN_WIDTH / (cub->data.input->x);
 	else
 		cub->m_map.wall_size = WIN_HEIGHT / (cub->data.input->y);
+	printf("%d\n", cub->m_map.wall_size);
 }
 
 int	init_cub(t_cub *cub, int argc, char **argv)

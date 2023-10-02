@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:47 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/29 17:39:19 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/02 16:58:33 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,7 @@ typedef struct s_data
 
 typedef struct s_keypress
 {
-	int	up;
-	int	down;
-	int	left;
-	int	right;
-	int	q;
-	int	e;
+	int	r;
 	int	m;
 }				t_keypress;
 

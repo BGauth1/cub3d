@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:04:23 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/29 17:58:46 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/02 17:00:51 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ void	draw_rays(t_cub *cub)
 	get_rays(cub, cub->player.rays);
 	i = -1;
 	if (cub->key.m)
-		draw_rays_map(cub, cub->m_map.wall_size);
+	{
+		if (cub->key.r)
+			draw_rays_map(cub, cub->m_map.wall_size);
+	}
 	else
 	{
 		while (++i < WIN_WIDTH)

@@ -6,11 +6,11 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:43:51 by lamasson          #+#    #+#             */
-/*   Updated: 2023/10/02 15:15:01 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:29:36 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3D.h"
+#include "../../includes/cub3D.h"
 
 static int	check_data_rec_rgb(int **col, int j)
 {
@@ -53,13 +53,8 @@ static int	ft_init_struct_rgb(int **col, char *line, int start, int i)
 			|| (line[i] == '\n' && j == 2))
 		{
 			tmp = ft_substr(line, start, i - start);
-			if (!tmp)
-				exit (1);
-			if (tmp[0] == '\0')
-			{
-				free(tmp);
+			if (ft_check_tmp(tmp) == -1)
 				return (-1);
-			}
 			(*col)[j] = ft_atois(tmp);
 			free(tmp);
 			j++;
