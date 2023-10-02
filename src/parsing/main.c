@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:00:55 by lamasson          #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:17 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:15:43 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	printf(" x = %d\n y = %d\n", data.input->pos_s[0], data.input->pos_s[1]);
-	
-	
+	printf(" %d - %d - %d\n", data.f[0], data.f[1], data.f[2]);
+	printf(" %d - %d - %d\n", data.c[0], data.c[1], data.c[2]);
 	
 	ft_free_tab_map(&data);
 	ft_free_struct(&data);
