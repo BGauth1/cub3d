@@ -6,11 +6,11 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 16:52:55 by lamasson          #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:17 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/29 17:31:55 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3D.h"
+#include "../../includes/cub3D_bonus.h"
 
 static char	*parsing_intro(char **arg, int argc)
 {

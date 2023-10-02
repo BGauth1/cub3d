@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:47 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/28 19:31:03 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/29 17:39:19 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <math.h>
 # include "MLX42/include/MLX42/MLX42.h"
 # include "MLX42/include/MLX42/MLX42_Int.h"
 # include "libft/libft.h"
-// # include "cub3D.h"
 # include <stdio.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -139,6 +138,15 @@ typedef struct s_player
 	float	move_speed;
 }				t_player;
 
+typedef struct s_minimap
+{
+	char	**map;
+	int		radius;
+	t_pos	center;
+	int		wall_size;
+	t_pos	pos;
+}				t_minimap;
+
 typedef struct s_cub
 {
 	t_player	player;
@@ -147,6 +155,7 @@ typedef struct s_cub
 	mlx_image_t	*render;
 	mlx_t		*ptr;
 	t_data_fd	data;
+	t_minimap	m_map;
 	void		*win;
 	int			width;
 	int			height;

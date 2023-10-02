@@ -6,13 +6,13 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:19:07 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:27 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/29 18:08:03 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../includes/cub3D_bonus.h"
 
-void	render_map(mlx_image_t *img, char **map)
+void	render_map(mlx_image_t *img, char **map, int size)
 {
 	int		i;
 	int		j;
@@ -31,27 +31,27 @@ void	render_map(mlx_image_t *img, char **map)
 				color = rgba_value(255, 0, 0, 255);
 			else
 				color = rgba_value(0, 0, 0, 255);
-			draw_rectangle(img, fill_pos(j * 10, i * 10),
-				fill_pos((j + 1) * 10 - 1, (i + 1) * 10 - 1), color);
+			draw_rectangle(img, fill_pos(j * size, i * size),
+				fill_pos((j + 1) * size - 1, (i + 1) * size - 1), color);
 		}
 	}
 }
 
-void	render_player(mlx_image_t *img, t_player player)
+void	render_player(mlx_image_t *img, t_player player, int size)
 {
-	draw_rectangle(img, fill_pos(player.coord.x * 10 - 1,
-			player.coord.y * 10 - 1), fill_pos(player.coord.x * 10 + 1,
-			player.coord.y * 10 + 1), rgba_value(50, 50, 255, 255));
+	draw_rectangle(img, fill_pos(player.coord.x * size - 5,
+			player.coord.y * size - 5), fill_pos(player.coord.x * size + 5,
+			player.coord.y * size + 5), rgba_value(50, 50, 255, 255));
 }
 
 void	render_all(t_cub *cub)
 {
-	render_map(cub->render, cub->map);
-	render_player(cub->render, cub->player);
-	draw_line(cub->render, fill_coord(cub->player.coord.x * 10,
-			cub->player.coord.y * 10), fill_coord(cub->player.coord.x * 10
-			+ cub->player.dir.x * 10, cub->player.coord.y * 10
-			+ cub->player.dir.y * 10), rgba_value(0, 255, 0, 255));
+	render_map(cub->render, cub->map, cub->m_map.wall_size);
+	render_player(cub->render, cub->player, cub->m_map.wall_size);
+	draw_line(cub->render, fill_coord(cub->player.coord.x * cub->m_map.wall_size,
+			cub->player.coord.y * cub->m_map.wall_size), fill_coord(cub->player.coord.x * cub->m_map.wall_size
+			+ cub->player.dir.x * cub->m_map.wall_size, cub->player.coord.y * cub->m_map.wall_size
+			+ cub->player.dir.y * cub->m_map.wall_size), rgba_value(0, 255, 0, 255));
 }
 
 void	starting_direction(t_player *p, char c)

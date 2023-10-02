@@ -6,11 +6,11 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:32:02 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/22 19:21:15 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/29 17:04:27 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3D.h"
+#include "../includes/cub3D.h"
 
 void	ft_freestr(char **str)
 {

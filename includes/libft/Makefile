@@ -6,7 +6,7 @@
 #    By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 20:09:09 by gbertet           #+#    #+#              #
-#    Updated: 2023/07/10 18:46:03 by gbertet          ###   ########.fr        #
+#    Updated: 2023/09/29 16:35:48 by gbertet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,10 +77,10 @@ CC = clang
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	ar -rc $(NAME) $(OBJ)
+	@ar -rc $(NAME) $(OBJ)
 
 %.o : %.c
-	$(CC) -c $(CFLAGS) -o $@ $^
+	@$(CC) -c $(CFLAGS) -o $@ $^
 
 clean :
 	rm -rf $(OBJ)

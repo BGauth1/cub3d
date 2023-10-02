@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsing_map_error.c                             :+:      :+:    :+:   */
+/*   ft_parsing_color_error.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 23:28:54 by lamasson          #+#    #+#             */
-/*   Updated: 2023/10/02 15:13:28 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/29 17:31:55 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3D.h"
+#include "../../includes/cub3D_bonus.h"
 
 int	check_digit_error(char *line)
 {
@@ -35,20 +35,49 @@ int	check_digit_error(char *line)
 	return (0);
 }
 
+static int	check_end_line_rgb(char *line, int i, int cmp)
+{
+	if (line[i] == '\0' && cmp != 2)
+		return (1);
+	if (line[i] && cmp != 3)
+		return (1);
+	while (line[i])
+	{
+		if (line[i] == ' ' || line[i] == '\t' || line[i] == '\n')
+			i++;
+		else
+			return (1);
+	}
+	return (0);
+}
+
+static int	len_digit_rgb(char c, int cmp)
+{
+	if (c == ',')
+		return (1);
+	else if (c == ' ' && cmp == 2)
+		return (1);
+	else if (c == '\t' && cmp == 2)
+		return (1);
+	return (0);
+}
+
 int	check_data_rgb_error(char *line, int i)
 {
 	int	b;
 	int	cmp;
 
-	i = 0;
+	b = 0;
 	cmp = 0;
 	while (!ft_isdigit(line[i]))
 		i++;
 	while (line[i])
 	{
+		if ((line[i] == ' ' && cmp == 3) || (line[i] == '\t' && cmp == 3))
+			break ;
 		if (ft_isdigit(line[i]))
 			b = 1;
-		if ((line[i] == ',' || line[i] == ' ' || line[i] == '\t') && b == 1)
+		if (len_digit_rgb(line[i], cmp) && b == 1)
 		{
 			cmp++;
 			b = 0;
@@ -56,9 +85,7 @@ int	check_data_rgb_error(char *line, int i)
 		else
 			i++;
 	}
-	if (!line[i] && b == 1)
-		cmp++;
-	if (cmp != 3)
+	if (check_end_line_rgb(line, i, cmp) == 1)
 		return (1);
 	return (0);
 }

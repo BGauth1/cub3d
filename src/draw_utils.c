@@ -6,11 +6,11 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 17:02:12 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/28 17:02:34 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/29 17:04:27 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3D.h"
+#include "../includes/cub3D.h"
 
 int	get_ray_color(t_ray ray)
 {

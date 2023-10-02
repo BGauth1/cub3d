@@ -6,11 +6,11 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:04:23 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:27 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/29 17:58:46 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../includes/cub3D_bonus.h"
 
 void	draw_single_ray(t_cub *cub, t_ray ray, int col)
 {
@@ -36,7 +36,7 @@ void	draw_single_ray(t_cub *cub, t_ray ray, int col)
 			cub->textures.f_color);
 }
 
-void	draw_rays_map(t_cub *cub)
+void	draw_rays_map(t_cub *cub, int size)
 {
 	int	color;
 	int	i;
@@ -45,12 +45,12 @@ void	draw_rays_map(t_cub *cub)
 	while (++i < WIN_WIDTH)
 	{
 		color = get_ray_color(cub->player.rays[i]);
-		draw_line(cub->render, fill_coord(cub->player.coord.x * 10, cub
-				->player.coord.y * 10), fill_coord(cub->player.coord.x
-				* 10.0 + cub->player.rays[i].dir.x * cub->player.rays[i]
-				.wall_dist * 10.0, cub->player.coord.y * 10.0 + cub
+		draw_line(cub->render, fill_coord(cub->player.coord.x * size, cub
+				->player.coord.y * size), fill_coord(cub->player.coord.x
+				* size + cub->player.rays[i].dir.x * cub->player.rays[i]
+				.wall_dist * size, cub->player.coord.y * size + cub
 				->player.rays[i].dir.y * cub->player.rays[i].wall_dist
-				* 10.0), color);
+				* size), color);
 	}
 }
 
@@ -62,7 +62,7 @@ void	draw_rays(t_cub *cub)
 	get_rays(cub, cub->player.rays);
 	i = -1;
 	if (cub->key.m)
-		draw_rays_map(cub);
+		draw_rays_map(cub, cub->m_map.wall_size);
 	else
 	{
 		while (++i < WIN_WIDTH)

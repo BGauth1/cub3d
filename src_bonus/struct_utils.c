@@ -6,11 +6,11 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 17:12:54 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:27 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/29 17:31:30 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../includes/cub3D_bonus.h"
 
 t_pos	fill_pos(int x, int y)
 {

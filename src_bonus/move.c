@@ -6,11 +6,11 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:59:42 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:27 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/29 17:31:30 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../includes/cub3D_bonus.h"
 
 int	hit_wall(float x, float y, char **map)
 {

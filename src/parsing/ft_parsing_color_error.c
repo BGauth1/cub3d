@@ -6,11 +6,11 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 23:28:54 by lamasson          #+#    #+#             */
-/*   Updated: 2023/09/22 19:22:30 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/29 17:04:17 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3D.h"
+#include "../../includes/cub3D.h"
 
 int	check_digit_error(char *line)
 {

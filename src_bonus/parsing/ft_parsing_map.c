@@ -6,11 +6,11 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 00:29:25 by lamasson          #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:17 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/29 17:31:55 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3D.h"
+#include "../../includes/cub3D_bonus.h"
 
 static int	ft_input_pos_player(t_data_fd *data, char *line, int i)
 {

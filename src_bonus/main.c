@@ -6,11 +6,11 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:34 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/29 17:34:46 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/09/29 18:08:21 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../includes/cub3D_bonus.h"
 
 void	game_loop(void *thing)
 {
@@ -40,6 +40,16 @@ void	game_loop(void *thing)
 		mlx_close_window(cub->ptr);
 }
 
+void	init_map(t_cub *cub)
+{
+	cub->map = cub->data.tab;
+	cub->m_map.map = cub->map;
+	if (cub->data.input->x > cub->data.input->y)
+		cub->m_map.wall_size = WIN_WIDTH / (cub->data.input->x);
+	else
+		cub->m_map.wall_size = WIN_HEIGHT / (cub->data.input->y);
+}
+
 int	init_cub(t_cub *cub, int argc, char **argv)
 {
 	int			i;
@@ -48,11 +58,11 @@ int	init_cub(t_cub *cub, int argc, char **argv)
 	if (parsing_data(argc, argv, &data))
 		return (0);
 	cub->data = data;
-	cub->map = data.tab;
+	init_map(cub);
 	cub->ptr = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", false);
 	cub->render = mlx_new_image(cub->ptr, WIN_WIDTH, WIN_HEIGHT);
 	mlx_image_to_window(cub->ptr, cub->render, 0, 0);
-	cub->player.coord = fill_coord(data.input->pos_s[0], data.input->pos_s[1]);
+	cub->player.coord = fill_coord(data.input->pos_s[0] + 0.5, data.input->pos_s[1] + 0.5);
 	starting_direction(&cub->player, cub->data.input->pos_j);
 	cub->textures.c_color = rgba_value(data.c[0], data.c[1], data.c[2], 255);
 	cub->textures.f_color = rgba_value(data.f[0], data.f[1], data.f[2], 255);
