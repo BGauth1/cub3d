@@ -167,6 +167,7 @@ int			check_digit_error(char *line);
 int			check_data_rgb_error(char *line, int i);
 
 //	ft_parsing_texture.c	//
+int			check_fake(char *line);
 int			rec_pos_element(char *line);
 int			check_id(char *line);
 int			parsing_texture(char *line, t_data_fd *data, int id);
@@ -176,7 +177,7 @@ int			printf_error(int id, char *str);
 int			check_end_line_texture(char *line, int i, char *path, int len);
 int			check_path_texture(char *path, int id);
 int			check_nb_element(t_data_fd *data, int id);
-int			check_if_all_init(t_data_fd *data);
+int			check_if_all_init(t_data_fd *data, char *line);
 
 //	ft_init_struct.c	//
 void		ft_free_struct(t_data_fd *data);

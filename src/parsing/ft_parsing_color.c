@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:43:51 by lamasson          #+#    #+#             */
-/*   Updated: 2023/10/02 15:29:36 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/03 20:56:58 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	ft_init_struct_rgb(int **col, char *line, int start, int i)
 			(*col)[j] = ft_atois(tmp);
 			free(tmp);
 			j++;
-			while (line[i] && !ft_isdigit(line[i]))
+			while (line[i] && !ft_isdigit(line[i]) && line[i] != '\n')
 				i++;
 			start = i;
 		}

@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 16:52:55 by lamasson          #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:17 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/03 16:16:28 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	ft_parse_line(char *line, t_data_fd *data)
 		return (0);
 	else if (id == -1)
 	{
-		if (check_if_all_init(data) == 1)
+		if (check_if_all_init(data, line) == 1)
 			return (1);
 		if (ft_parsing_map(data, line) == 1)
 			return (1);

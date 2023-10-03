@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 21:37:29 by lamasson          #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:17 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/03 16:11:20 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,13 @@ int	check_nb_element(t_data_fd *data, int id)
 	return (1);
 }
 
-int	check_if_all_init(t_data_fd *data)
+int	check_if_all_init(t_data_fd *data, char *line)
 {
 	int	id;
 
 	id = 0;
+	if (check_fake(line))
+		return (1);
 	if (!data->path_no)
 		id = 1;
 	else if (!data->path_so)

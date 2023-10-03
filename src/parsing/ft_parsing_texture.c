@@ -6,11 +6,29 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 21:02:23 by lamasson          #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:17 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/03 16:25:22 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
+
+int	check_fake(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\n' && line[i] != '\t' \
+			&& line[i] != '1' && line[i] != '0' && !check_pts_card(line[i]))
+		{
+			printf("Error\nIncorrect data in file\n");
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
 
 int	check_id(char *line)
 {
