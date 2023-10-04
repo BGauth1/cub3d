@@ -6,20 +6,17 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:34 by gbertet           #+#    #+#             */
-/*   Updated: 2023/10/02 15:41:55 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/03 16:47:50 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void	game_loop(void *thing)
+static void	game_loop(void *thing)
 {
 	t_cub	*cub;
 
 	cub = (t_cub *)thing;
-	if (cub->key.m)
-		render_all(cub);
-	draw_rays(cub);
 	if (mlx_is_key_down(cub->ptr, MLX_KEY_LEFT_SHIFT))
 		cub->player.move_speed = P_MV_SPEED * 1.70;
 	else
@@ -38,21 +35,51 @@ void	game_loop(void *thing)
 		turn_right(&cub->player);
 	if (mlx_is_key_down(cub->ptr, MLX_KEY_ESCAPE))
 		mlx_close_window(cub->ptr);
+	get_rays(cub, cub->player.rays);
 }
 
-int	init_cub(t_cub *cub, int argc, char **argv)
+static void	starting_direction(t_player *p, char c)
+{
+	if (c == 'N')
+	{
+		p->dir = fill_coord(0, -1);
+		p->plane = fill_coord(-0.66, 0);
+	}
+	else if (c == 'S')
+	{
+		p->dir = fill_coord(0, 1);
+		p->plane = fill_coord(0.66, 0);
+	}
+	else if (c == 'E')
+	{
+		p->dir = fill_coord(1, 0);
+		p->plane = fill_coord(0, -0.66);
+	}
+	else
+	{
+		p->dir = fill_coord(-1, 0);
+		p->plane = fill_coord(0, 0.66);
+	}
+}
+
+static int	init_cub(t_cub *cub, int argc, char **argv)
 {
 	int			i;
 	t_data_fd	data;
 
 	if (parsing_data(argc, argv, &data))
-		return (0);
+		return (1);
 	cub->data = data;
 	cub->map = data.tab;
 	cub->ptr = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", false);
+	load_textures(cub);
+	if (!cub->textures.ea_texture || !cub->textures.so_texture
+		|| !cub->textures.no_texture || !cub->textures.we_texture)
+		return (2);
 	cub->render = mlx_new_image(cub->ptr, WIN_WIDTH, WIN_HEIGHT);
 	mlx_image_to_window(cub->ptr, cub->render, 0, 0);
-	cub->player.coord = fill_coord(data.input->pos_s[0] + 0.5, data.input->pos_s[1] + 0.5);
+	cub->player.coord = fill_coord(data.input->pos_s[0] + 0.5,
+			data.input->pos_s[1] + 0.5);
 	starting_direction(&cub->player, cub->data.input->pos_j);
 	cub->textures.c_color = rgba_value(data.c[0], data.c[1], data.c[2], 255);
 	cub->textures.f_color = rgba_value(data.f[0], data.f[1], data.f[2], 255);
@@ -60,25 +87,20 @@ int	init_cub(t_cub *cub, int argc, char **argv)
 	i = -1;
 	while (++i < WIN_WIDTH)
 		cub->player.rays[i].num = WIN_WIDTH - i - 1;
-	load_textures(cub);
-	init_keypress(cub);
-	if (!cub->textures.ea_texture || !cub->textures.so_texture
-		|| !cub->textures.no_texture || !cub->textures.we_texture)
-		return (0);
-	return (1);
+	return (0);
 }
 
 int	main(int ac, char **av)
 {
 	t_cub	cub;
+	int		err;
 
-	if (!init_cub(&cub, ac, av))
-		exit (1);
-	draw_texture(&cub, *cub.textures.ea_texture, fill_pos(10, 10));
+	err = init_cub(&cub, ac, av);
+	if (err)
+		ft_exit(&cub, err);
 	mlx_loop_hook(cub.ptr, game_loop, &cub);
-	mlx_key_hook(cub.ptr, &da_key_hook, &cub);
 	mlx_loop(cub.ptr);
 	mlx_terminate(cub.ptr);
-	ft_exit(&cub);
+	ft_exit(&cub, 0);
 	return (0);
 }

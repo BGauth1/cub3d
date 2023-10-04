@@ -6,22 +6,13 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:57:23 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:27 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/03 16:42:04 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-int	ft_exit(t_cub *cub)
-{
-	ft_free_tab_map(&cub->data);
-	ft_free_struct(&cub->data);
-	free_textures(&cub->textures);
-	free(cub->player.rays);
-	exit(0);
-}
-
-void	free_textures(t_color *textures)
+static void	free_textures(t_color *textures)
 {
 	if (textures->no_texture)
 	{
@@ -47,4 +38,17 @@ void	free_textures(t_color *textures)
 			free(textures->we_texture->pixels);
 		free(textures->we_texture);
 	}
+}
+
+int	ft_exit(t_cub *cub, int n)
+{
+	if (n == 2 || !n)
+	{
+		ft_free_tab_map(&cub->data);
+		ft_free_struct(&cub->data);
+		free_textures(&cub->textures);
+	}
+	if (!n)
+		free(cub->player.rays);
+	exit(n);
 }

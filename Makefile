@@ -6,7 +6,7 @@ LFLAGS = -L $(LIBFT) -lft -lm
 MLX = ./includes/MLX42
 MFLAGS = $(MLX)/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 
-SRC = src/main.c src/draw.c src/draw_utils.c src/hooks.c src/map.c src/utils.c src/free.c src/move.c src/rays.c src/struct_utils.c src/texture.c src/dda.c src/parsing/ft_parsing.c src/parsing/ft_parsing_color.c src/parsing/ft_parsing_color_error.c src/parsing/ft_parsing_texture.c src/parsing/ft_parsing_texture_error.c src/parsing/ft_init_struct.c src/parsing/ft_parsing_map.c src/parsing/ft_parsing_map_utils.c src/parsing/ft_parsing_map_error.c
+SRC = src/main.c src/draw.c src/hooks.c src/utils.c src/free.c src/move.c src/texture.c src/dda.c src/parsing/ft_parsing.c src/parsing/ft_parsing_color.c src/parsing/ft_parsing_color_error.c src/parsing/ft_parsing_texture.c src/parsing/ft_parsing_texture_error.c src/parsing/ft_init_struct.c src/parsing/ft_parsing_map.c src/parsing/ft_parsing_map_utils.c src/parsing/ft_parsing_map_error.c
 SRC_DIR = src
 SRC_DIR_BONUS = src_bonus
 

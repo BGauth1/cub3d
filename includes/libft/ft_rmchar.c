@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 17:15:37 by gbertet           #+#    #+#             */
-/*   Updated: 2023/07/10 18:00:49 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/04 15:50:41 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	ft_rmchar(char *s, char c)
 {
-    int i;
+	int	i;
 
 	if (!s)
 		return ;
 	i = 0;
-    while (s[i])
+	while (s[i])
 	{
-        if (s[i] == c)
-            ft_rmcharn(s, i);
-        else
-            i++;
+		if (s[i] == c)
+			ft_rmcharn(s, i);
+		else
+			i++;
 	}
 }

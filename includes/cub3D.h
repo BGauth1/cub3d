@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:47 by gbertet           #+#    #+#             */
-/*   Updated: 2023/10/02 16:58:01 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/04 15:59:06 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_data_fd
 	char			*path_ea;
 	int				*f;
 	int				*c;
-}t_data_fd;
+}				t_data_fd;
 
 typedef struct s_map
 {
@@ -64,22 +64,7 @@ typedef struct s_map
 	int		i;
 	int		pos_s[2];
 	char	pos_j;
-}t_map;
-
-typedef struct s_data
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-typedef struct s_keypress
-{
-	int	r;
-	int	m;
-}				t_keypress;
+}				t_map;
 
 typedef struct s_pos
 {
@@ -133,20 +118,10 @@ typedef struct s_player
 	float	move_speed;
 }				t_player;
 
-typedef struct s_minimap
-{
-	char	**map;
-	int		radius;
-	t_pos	center;
-	int		wall_size;
-	t_pos	pos;
-}				t_minimap;
-
 typedef struct s_cub
 {
 	t_player	player;
 	t_color		textures;
-	t_keypress	key;
 	mlx_image_t	*render;
 	mlx_t		*ptr;
 	t_data_fd	data;
@@ -196,50 +171,35 @@ int			check_pts_card(char c);
 //	ft_parsing_map_error.c	//
 int			second_read_map(t_data_fd *data);
 
-t_coord		fill_coord(float x, float y);
-t_pos		fill_pos(int x, int y);
-void		draw_line(mlx_image_t *data, t_coord begin, t_coord end,
-				int color);
-void		draw_rectangle(mlx_image_t *data, t_pos begin,
-				t_pos end, int color);
-void		draw_wall_texture(t_cub *cub, t_ray ray, int *drawStart,
-				int lineLength);
+//	dda.c	//
+void		get_rays(t_cub *cub, t_ray *rays);
+
+//	draw.c	//
 int			rgba_value(int r, int g, int b, int a);
-int			ft_exit(t_cub *cub);
+void		draw_single_ray(t_cub *cub, t_ray ray, int col);
 
-void		starting_direction(t_player *p, char c);
+//	free.c	//
+int			ft_exit(t_cub *cub, int n);
 
-void		render_all(t_cub *cub);
-int			ft_abs(int i);
-void		ft_freestr(char **str);
-void		ft_fswap(float *a, float *b);
-float		ft_fabs(float x);
-int			get_ray_color(t_ray ray);
-void		draw_rays(t_cub *cub);
-void		init_keypress(t_cub *cub);
-void		da_key_hook(mlx_key_data_t keydata, void *thing);
-
+//	hooks.c	//
 void		turn_left(t_player *p);
 void		turn_right(t_player *p);
+
+//	move.c	//
 void		move_right(t_player *p, char **map);
 void		move_left(t_player *p, char **map);
 void		move_down(t_player *p, char **map);
 void		move_up(t_player *p, char **map);
 
+//	texture.c	//
 t_texture	*get_side_texture(int side, float dirx, float diry,
 				t_color texture);
 void		load_textures(t_cub *cub);
-void		draw_texture(t_cub *cub, t_texture texture, t_pos pos);
 
-int			rgba_value(int r, int g, int b, int a);
-
-t_ray		init_ray(t_cub *cub, int iter);
-void		get_side_dist(t_cub *cub, t_ray *ray);
-void		dda_loop(t_cub *cub, t_ray *ray);
-void		get_wall_data(t_cub *cub, t_ray *ray);
-void		get_rays(t_cub *cub, t_ray *rays);
-
-int			ft_exit(t_cub *cub);
-void		free_textures(t_color *textures);
+//	utils.c	//
+t_coord		fill_coord(float x, float y);
+t_pos		fill_pos(int x, int y);
+int			ft_abs(int i);
+float		ft_fabs(float x);
 
 #endif

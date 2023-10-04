@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:46:30 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:27 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/03 16:43:18 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_texture	*get_side_texture(int side, float dirx, float diry, t_color txtr)
 	return (txtr.we_texture);
 }
 
-t_texture	*get_texture_from_mlx(mlx_image_t *tmp)
+static t_texture	*get_texture_from_mlx(mlx_image_t *tmp)
 {
 	t_texture	*texture;
 	int			tot_pixels;
@@ -52,18 +52,23 @@ t_texture	*get_texture_from_mlx(mlx_image_t *tmp)
 	return (texture);
 }
 
-t_texture	*get_texture(t_cub *cub, char *path)
+static t_texture	*get_texture(t_cub *cub, char *path)
 {
 	t_texture		*texture;
 	mlx_texture_t	*mlx_texture_tmp;
 	mlx_image_t		*mlx_image_tmp;
 
 	mlx_texture_tmp = mlx_load_png(path);
-	mlx_image_tmp = mlx_texture_to_image(cub->ptr, mlx_texture_tmp);
-	texture = get_texture_from_mlx(mlx_image_tmp);
-	mlx_delete_texture(mlx_texture_tmp);
-	mlx_delete_image(cub->ptr, mlx_image_tmp);
-	return (texture);
+	if (mlx_texture_tmp)
+	{
+		mlx_image_tmp = mlx_texture_to_image(cub->ptr, mlx_texture_tmp);
+		texture = get_texture_from_mlx(mlx_image_tmp);
+		mlx_delete_texture(mlx_texture_tmp);
+		mlx_delete_image(cub->ptr, mlx_image_tmp);
+		return (texture);
+	}
+	ft_printf("MLX42: Couldn't load \"%s\".\n", path);
+	return (NULL);
 }
 
 void	load_textures(t_cub *cub)

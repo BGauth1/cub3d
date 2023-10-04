@@ -6,56 +6,13 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:41 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:27 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/03 16:41:42 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void	draw_line(mlx_image_t *data, t_coord begin, t_coord end, int color)
-{
-	float	diffx;
-	float	diffy;
-	float	max_diff;
-	int		i;
-	t_coord	incr;
-
-	i = -1;
-	if (begin.x > end.x)
-	{
-		ft_fswap(&begin.x, &end.x);
-		ft_fswap(&begin.y, &end.y);
-	}
-	diffx = end.x - begin.x;
-	diffy = end.y - begin.y;
-	if (ft_abs(diffx) > ft_abs(diffy))
-		max_diff = ft_abs(diffx);
-	else
-		max_diff = ft_abs(diffy);
-	incr = fill_coord(diffx / max_diff, diffy / max_diff);
-	while (++i < max_diff)
-	{
-		mlx_put_pixel(data, begin.x, begin.y, color);
-		begin.x += incr.x;
-		begin.y += incr.y;
-	}
-}
-
-void	draw_rectangle(mlx_image_t *data, t_pos begin, t_pos end, int color)
-{
-	int	tmp;
-
-	tmp = begin.x;
-	while (begin.y <= end.y)
-	{
-		while (begin.x <= end.x)
-			mlx_put_pixel(data, begin.x++, begin.y, color);
-		begin.x = tmp;
-		begin.y++;
-	}
-}
-
-void	draw_wall_texture(t_cub *cub, t_ray ray, int *drawStart,
+static void	draw_wall_texture(t_cub *cub, t_ray ray, int *drawStart,
 	int lineLength)
 {
 	t_texture	*texture;
@@ -84,21 +41,31 @@ void	draw_wall_texture(t_cub *cub, t_ray ray, int *drawStart,
 			cub->textures.f_color);
 }
 
-void	draw_texture(t_cub *cub, t_texture texture, t_pos pos)
+void	draw_single_ray(t_cub *cub, t_ray ray, int col)
 {
-	int	x;
-	int	y;
-	int	limit_x;
-	int	limit_y;
+	int	lineheight;
+	int	drawstart;
+	int	drawend;
+	int	drawceil;
 
-	y = -1;
-	limit_x = WIN_WIDTH - pos.x;
-	limit_y = WIN_HEIGHT - pos.y;
-	while (++y < texture.height && y < limit_y)
-	{
-		x = -1;
-		while (++x < texture.width && x < limit_x)
-			mlx_put_pixel(cub->render, x + pos.x, y + pos.y,
-				texture.pixels[x + y * texture.width]);
-	}
+	lineheight = (int)(WIN_HEIGHT / (ray.wall_dist * 1.2));
+	drawstart = -lineheight / 2 + WIN_HEIGHT / 2;
+	if (drawstart < 0)
+		drawstart = 0;
+	drawend = lineheight / 2 + WIN_HEIGHT / 2;
+	if (drawend >= WIN_HEIGHT)
+		drawend = WIN_HEIGHT - 1;
+	drawceil = 0;
+	while (drawceil < drawstart)
+		mlx_put_pixel(cub->render, col, drawceil++,
+			cub->textures.c_color);
+	draw_wall_texture(cub, ray, &drawstart, lineheight);
+	while (++drawend < WIN_HEIGHT)
+		mlx_put_pixel(cub->render, col, drawend,
+			cub->textures.f_color);
+}
+
+int	rgba_value(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
 }

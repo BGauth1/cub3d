@@ -6,13 +6,13 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:48:31 by gbertet           #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:27 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/03 17:23:11 by gbertet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-t_ray	init_ray(t_cub *cub, int iter)
+static t_ray	init_ray(t_cub *cub, int iter)
 {
 	t_ray	ray;
 	float	camera;
@@ -34,7 +34,7 @@ t_ray	init_ray(t_cub *cub, int iter)
 	return (ray);
 }
 
-void	get_side_dist(t_cub *cub, t_ray *ray)
+static void	get_side_dist(t_cub *cub, t_ray *ray)
 {
 	if (ray->dir.x < 0)
 	{
@@ -62,7 +62,7 @@ void	get_side_dist(t_cub *cub, t_ray *ray)
 	}
 }
 
-void	dda_loop(t_cub *cub, t_ray *ray)
+static void	dda_loop(t_cub *cub, t_ray *ray)
 {
 	while (ray->hit == 0)
 	{
@@ -83,7 +83,7 @@ void	dda_loop(t_cub *cub, t_ray *ray)
 	}
 }
 
-void	get_wall_data(t_cub *cub, t_ray *ray)
+static void	get_wall_data(t_cub *cub, t_ray *ray)
 {
 	if (!ray->side)
 	{
@@ -110,5 +110,6 @@ void	get_rays(t_cub *cub, t_ray *rays)
 		get_side_dist(cub, &rays[i]);
 		dda_loop(cub, &rays[i]);
 		get_wall_data(cub, &rays[i]);
+		draw_single_ray(cub, cub->player.rays[i], WIN_WIDTH - i - 1);
 	}
 }
