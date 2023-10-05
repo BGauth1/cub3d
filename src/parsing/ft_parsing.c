@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 16:52:55 by lamasson          #+#    #+#             */
-/*   Updated: 2023/10/04 13:56:33 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/05 21:10:05 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static char	*parsing_intro(char **arg, int argc)
 {
 	int		fd;
-	char	*path;
 
 	if (argc > 2)
 	{
@@ -27,42 +26,16 @@ static char	*parsing_intro(char **arg, int argc)
 		printf("Error\nNo fd\n");
 		return (NULL);
 	}
-	path = arg[1];
-	fd = open(path, O_RDONLY);
+	if (check_path_file(arg[1], ".cub"))
+		return (NULL);
+	fd = open(arg[1], O_RDONLY);
 	if (fd == -1)
 	{
 		printf("Error\n%s\n", strerror(errno));
 		return (NULL);
 	}
 	close(fd);
-	return (path);
-}
-
-static int	ft_parse_line(char *line, t_data_fd *data)
-{
-	int	b;
-	int	id;	
-
-	b = 0;
-	id = check_id(line);
-	if (check_nb_element(data, id) == 1)
-		return (1);
-	if (id >= 1 && id <= 4)
-		b = parsing_texture(line, data, id);
-	else if (id == 5 || id == 6)
-		b = parsing_colors(line, data, id);
-	else if (id == -2)
-		return (0);
-	else if (id == -1)
-	{
-		if (check_if_all_init(data, line) == 1)
-			return (1);
-		if (ft_parsing_map(data, line) == 1)
-			return (1);
-	}
-	if (b == 1)
-		return (1);
-	return (0);
+	return (arg[1]);
 }
 
 static int	recover_file(char *path, t_data_fd *data)
@@ -78,7 +51,7 @@ static int	recover_file(char *path, t_data_fd *data)
 	line = get_next_line(fd);
 	while (line && check != 1)
 	{
-		check = ft_parse_line(line, data);
+		check = ft_parse_line_split(line, data);
 		free(line);
 		line = get_next_line(fd);
 	}

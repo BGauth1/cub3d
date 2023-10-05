@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:25:53 by lamasson          #+#    #+#             */
-/*   Updated: 2023/09/29 17:04:17 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/05 00:01:16 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_pts_card(char c)
 	return (0);
 }
 
-int	ft_find_map(char *line)
+int	ft_complet_map(char *line)
 {
 	int	i;
 	int	b;
@@ -28,17 +28,11 @@ int	ft_find_map(char *line)
 	i = 0;
 	while (line[i] && line[i] != '\n')
 	{
-		if (line[i] == ' ' || line[i] == '\t')
-			i++;
-		else if (line[i] == '0' || line[i] == '1')
-		{
+		if (line[i] == '0' || line[i] == '1' || line[i] == ' ')
 			b = 1;
-			i++;
-		}
-		else if (check_pts_card(line[i]))
-			i++;
-		else
+		else if (line[i] != '\t' && !check_pts_card(line[i]))
 			return (1);
+		i++;
 	}
 	if (line[i] == '\n' && b == 0)
 		return (1);
@@ -75,7 +69,7 @@ static int	rec_data_map(char *line, int fd, t_data_fd *data)
 
 	data->input->y = 0;
 	data->input->x = ft_strlen(line);
-	while (line && ft_find_map(line) == 0)
+	while (line && ft_complet_map(line) == 0)
 	{
 		free(line);
 		line = get_next_line(fd);

@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 14:13:47 by gbertet           #+#    #+#             */
-/*   Updated: 2023/10/04 15:59:06 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/05 18:11:27 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_map
 	int		y;
 	int		j;
 	int		i;
+	int		m;
 	int		pos_s[2];
 	char	pos_j;
 }				t_map;
@@ -131,7 +132,7 @@ typedef struct s_cub
 	char		**map;
 }				t_cub;
 
-//	ft_parse.c	//
+//	ft_parsing.c	//
 int			parsing_data(int argc, char **argv, t_data_fd *data);
 
 //	ft_parsing_color.c	//
@@ -140,6 +141,10 @@ int			parsing_colors(char *line, t_data_fd *data, int id);
 //	ft_parsing_color_error.c	//
 int			check_digit_error(char *line);
 int			check_data_rgb_error(char *line, int i);
+int			check_path_file(char *path, char *format);
+
+//	ft_parse_line_break.c	//
+int			ft_parse_line_split(char *line, t_data_fd *data);
 
 //	ft_parsing_texture.c	//
 int			check_fake(char *line);
@@ -161,12 +166,13 @@ void		ft_init_tab_map(t_data_fd *data);
 void		ft_free_tab_map(t_data_fd *data);
 
 //	ft_parsing_map.c	//
+int			ft_find_map(char *line);
 int			ft_parsing_map(t_data_fd *data, char *line);
 
 //	ft_parsing_map_utils.c	//
 int			first_read_map(char *path, t_data_fd *data);
-int			ft_find_map(char *line);
 int			check_pts_card(char c);
+int			ft_complet_map(char *line);
 
 //	ft_parsing_map_error.c	//
 int			second_read_map(t_data_fd *data);

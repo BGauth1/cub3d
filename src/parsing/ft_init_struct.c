@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 21:02:42 by lamasson          #+#    #+#             */
-/*   Updated: 2023/10/03 15:12:26 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/05 18:00:44 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_init_struct(t_data_fd *data)
 	data->input = malloc(sizeof(t_map));
 	data->input->j = 0;
 	data->input->i = 0;
+	data->input->m = 0;
 	data->input->pos_j = 'A';
 }
 

@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 23:28:54 by lamasson          #+#    #+#             */
-/*   Updated: 2023/10/02 15:29:47 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/04 22:40:01 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,28 @@ int	check_data_rgb_error(char *line, int i)
 		cmp++;
 	if (cmp != 3)
 		return (1);
+	return (0);
+}
+
+int	check_path_file(char *path, char *format)
+{
+	int	j;
+	int	i;
+
+	j = ft_strlen(path) - 4;
+	i = 0;
+	while (path[j])
+	{
+		if (path[j] == format[i])
+		{
+			j++;
+			i++;
+		}
+		else
+		{
+			printf("Error\nWrong Format for input file\n");
+			return (1);
+		}
+	}
 	return (0);
 }
