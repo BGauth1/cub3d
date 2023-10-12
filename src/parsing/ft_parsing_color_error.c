@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 23:28:54 by lamasson          #+#    #+#             */
-/*   Updated: 2023/10/04 22:40:01 by lamasson         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:12:09 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	check_digit_error(char *line)
 	int	nb_v;
 
 	i = rec_pos_element(line);
+	if (i == -1)
+		return (1);
 	nb_v = 0;
 	while (line[i])
 	{

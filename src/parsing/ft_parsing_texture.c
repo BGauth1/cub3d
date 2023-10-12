@@ -6,7 +6,7 @@
 /*   By: gbertet <gbertet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 21:02:23 by lamasson          #+#    #+#             */
-/*   Updated: 2023/10/04 13:56:49 by gbertet          ###   ########.fr       */
+/*   Updated: 2023/10/12 23:20:24 by lamasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,17 @@ int	rec_pos_element(char *line)
 	int	i;
 
 	i = 0;
-	while (!ft_isalpha(line[i]))
+	while (line[i] == ' ' || line[i] == '\t')
 		i++;
-	while (ft_isalpha(line[i]))
+	if ((line[i] == 'N' && line[i + 1] == 'O') \
+		|| (line[i] == 'S' && line[i + 1] == 'O') \
+			|| (line[i] == 'W' && line[i + 1] == 'E') \
+				|| (line[i] == 'E' && line[i + 1] == 'A'))
+		i += 2;
+	else if (line[i] == 'F' || line[i] == 'C')
 		i++;
+	else
+		return (-1);
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	return (i);
@@ -79,6 +86,8 @@ static char	*rec_path_text(char *line)
 	char	*path;
 
 	i = rec_pos_element(line);
+	if (i == -1)
+		return (NULL);
 	start = i;
 	while (line[i] != '\0')
 	{
